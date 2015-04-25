@@ -1,14 +1,19 @@
 <?php
 /**
  * @file
- * Circle.
+ * Triangle.
  */
 
-namespace Riplife\Shapes\Shapes;
+namespace Shapes\Shapes;
 
 
-class Circle extends Shape
+class Triangle extends Shape
 {
+
+    /**
+     * @var int $parameters
+     */
+    protected $parameters = 6;
 
     /**
      * @var float
@@ -66,5 +71,25 @@ class Circle extends Shape
         );
 
         return $this->calculator->getArea($data);
+    }
+
+    /**
+     * Formats a string with the result of the operation.
+     *
+     * @return string
+     *   A formatted string.
+     */
+    public function format() {
+        $data = array(
+            'v1x' => $this->v1x,
+            'v1y' => $this->v1y,
+            'v2x' => $this->v2x,
+            'v2y' => $this->v2y,
+            'v3x' => $this->v3x,
+            'v3y' => $this->v3y,
+            'area' => $this->getArea(),
+        );
+
+        return $this->formatter->format($data);
     }
 }

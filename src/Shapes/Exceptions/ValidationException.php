@@ -1,6 +1,6 @@
 <?php
 
-namespace Riplife\Shapes\Exceptions;
+namespace Shapes\Exceptions;
 
 
 class ValidationException extends \Exception {
@@ -10,7 +10,7 @@ class ValidationException extends \Exception {
 
     protected $value;
 
-    public function __construct($message = "", $code = 1, Exception $previous = null, $value) {
+    public function __construct($message = "", $code = 1, Exception $previous = null, $value = null) {
         parent::__construct($message, $code, $previous);
         $this->value = $value;
     }

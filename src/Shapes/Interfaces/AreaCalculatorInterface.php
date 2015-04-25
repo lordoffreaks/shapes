@@ -4,7 +4,7 @@
  * AreaCalculatorInterface.
  */
 
-namespace Riplife\Shapes\Interfaces;
+namespace Shapes\Interfaces;
 
 interface AreaCalculatorInterface
 {

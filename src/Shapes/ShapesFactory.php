@@ -4,29 +4,25 @@
  * ShapesFactory.
  */
 
-namespace Riplife\Shapes;
+namespace Shapes;
 
-use Riplife\Shapes\Shapes\Shape;
-use Riplife\Shapes\Exceptions\UndefinedShapeException;
+use Shapes\Shapes\Shape;
+use Shapes\Exceptions\UndefinedShapeException;
 
 class ShapesFactory
 {
     public static function factory($config = array())
     {
-        $class = $config['shape'];
-        $validator = $config['validator'];
-        $calculator = $config['calculator'];
-        $formatter = $config['formatter'];
-        $parameters = $config['parameters'];
+        $class = $config['class'];
+        $validator = new $config['validator'];
+        $calculator = new $config['calculator'];
+        $formatter = new $config['formatter'];
 
-        if ($class instanceof Shape) {
-            return new $class($validator, $calculator, $formatter, $parameters);
+        try {
+            return new $class($validator, $calculator, $formatter);
         }
-        else
-        {
+        catch (\Exception $e) {
             throw new UndefinedShapeException();
         }
-
-
     }
 }

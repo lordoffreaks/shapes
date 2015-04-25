@@ -1,14 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: alex311es
- * Date: 24/4/15
- * Time: 23:39
- */
 
-namespace Riplife\Shapes\Services\AreaCalculators;
+namespace Shapes\AreaCalculators;
 
-use Riplife\Shapes\Interfaces\AreaCalculatorInterface;
+use Shapes\Interfaces\AreaCalculatorInterface;
 
 class Donut implements AreaCalculatorInterface {
 
@@ -23,8 +17,8 @@ class Donut implements AreaCalculatorInterface {
      */
     public function getArea(array $data)
     {
-        $radius = new Circle(array('radius' => $data['radius']));
-        $radius2 = new Circle(array('radius' => $data['radius2']));
+        $radius = (new Circle())->getArea(array('radius' => $data['radius']));
+        $radius2 = (new Circle())->getArea(array('radius' => $data['radius2']));
 
         return abs($radius - $radius2);
     }

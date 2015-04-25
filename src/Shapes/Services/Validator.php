@@ -6,10 +6,10 @@
  * Time: 23:12
  */
 
-namespace Riplife\Shapes\Services;
+namespace Shapes\Services;
 
-use Riplife\Shapes\Interfaces\ValidatorInterface;
-use Riplife\Shapes\Exceptions\ValidationException;
+use Shapes\Interfaces\ValidatorInterface;
+use Shapes\Exceptions\ValidationException;
 
 
 class Validator implements ValidatorInterface
@@ -24,17 +24,17 @@ class Validator implements ValidatorInterface
      * @param int $parameters
      *   Number of parameters expected by the shape.
      *
-     * @throws \Riplife\Shapes\Exceptions\ValidationException
+     * @throws \Shapes\Exceptions\ValidationException
      */
     public function validate($data, $parameters)
     {
         if (count($data) !== $parameters) {
-            throw new ValidationException('');
+            throw new ValidationException('', ValidationException::INVALID_PARAMETERS_NUMBER);
         }
 
         foreach ($data as $number) {
             if (!is_double($number)) {
-                throw new ValidationException('', 0, NULL, $number);
+                throw new ValidationException('', ValidationException::INVALID_PARAMETER_TYPE, NULL, $number);
             }
         }
     }

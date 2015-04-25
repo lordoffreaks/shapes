@@ -6,7 +6,7 @@
  * Time: 23:11
  */
 
-namespace Riplife\Shapes\Interfaces;
+namespace Shapes\Interfaces;
 
 
 interface ValidatorInterface {
@@ -21,7 +21,7 @@ interface ValidatorInterface {
      * @param int $parameters
      *   Number of parameters expected by the shape.
      *
-     * @throws \Riplife\Shapes\Exceptions\ValidationException
+     * @throws \Shapes\Exceptions\ValidationException
      */
     public function validate($input, $parameters);
 }

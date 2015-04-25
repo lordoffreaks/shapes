@@ -1,6 +1,6 @@
 <?php
 
-namespace Riplife\Shapes\Interfaces;
+namespace Shapes\Interfaces;
 
 
 interface FormatterInterface {

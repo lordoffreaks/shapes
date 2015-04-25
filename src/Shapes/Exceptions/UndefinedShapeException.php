@@ -6,7 +6,7 @@
  * Time: 0:36
  */
 
-namespace Riplife\Shapes\Exceptions;
+namespace Shapes\Exceptions;
 
 
 class UndefinedShapeException extends \Exception {}

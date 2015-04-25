@@ -1,8 +1,5 @@
 <?php
 
-use Riplife\Shapes\ShapesFactory;
-use Riplife\Shapes\Exceptions as Exceptions;
-
 /**
  * Implementation of hook_help()
  */
@@ -39,90 +36,34 @@ function shapes_menu() {
         'page arguments' => array('shapes_form'),
         'access arguments' => array('administer sample page'),
         'type' => MENU_CALLBACK,
+        'file' => 'shapes.forms.inc',
     );
 
     return $items;
 }
 
 /**
- * Sample Form
+ * Api function to collect all the shapes.
+ *
+ * @return array
  */
-function shapes_form($form, &$form_state) {
-    $form = array();
+function shapes_get_shapes() {
 
-    $form['description'] = array(
-      '#type' => 'markup',
-      '#markup' => '<p>' . t('For the circle, the numbers are the x and y coordinates of the centre followed by the radius') . '</p><p>' . t('For the triangle it is the x and y coordinates of the three vertices (six numbers in total)') . '</p><p>' . t('For the donut it is the x and y of the centre followed by the two radiuses') . '</p>',
-    );
+    $info = &drupal_static(__FUNCTION__, array());
 
-    $form['shape'] = array(
-      '#type' => 'select',
-      '#title' => t('Shape'),
-      '#description' => t('Choose a shape'),
-      '#options' => drupal_map_assoc(array('Circle', 'Triangle', 'Donut')),
-      '#required' => TRUE,
-    );
-
-    $form['coordinates'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Coordinates'),
-      '#description' => t('Write here the coordinates of the shape'),
-      '#required' => TRUE,
-      '#size' => '60',
-    );
-
-    $form['submit'] = array(
-      '#type' => 'submit',
-      '#value' => t('Calculate Area'),
-    );
-
-    return $form;
+    if (empty($info)) {
+        $info = module_invoke_all('shapes_info');
+    }
+    return $info;
 }
 
-function shapes_form_validate($form, &$form_state) {
-    $shape = $form_state['values']['shape'];
-    $config = array(
-      'class' => $shape,
-      'validator' => variable_get("shapes_validator_$shape", 'Riplife\Shapes\Services\Validator'),
-      'calculator' => variable_get("shapes_calculator_$shape", 'Riplife\Shapes\Services\\' . ucfirst($shape)),
-      'formatter' => variable_get("shapes_formatter_$shape", 'Riplife\Shapes\Formatters\\' . ucfirst($shape)),
-      'parameters' => variable_get("shapes_parameters_$shape", NULL),
+/**
+ * Implements the hook_shapes_info.
+ */
+function shapes_shapes_info() {
+    return array(
+        'Circle',
+        'Triangle',
+        'Donut'
     );
-
-    try {
-        $object = ShapesFactory::factory($config);
-        $object->validate($form_state['values']['coordinates']);
-
-        $form_state['values']['object'] = $object;
-
-    }
-    catch (Exceptions\UndefinedShapeException $e) {
-        $field = 'shape';
-        $message = t('Unrecognised shape type, please try again.');
-    }
-    catch (Exceptions\ValidationException $e) {
-
-        switch ($e->getCode()) {
-            case Exceptions\ValidationException::INVALID_PARAMETERS_NUMBER:
-                $field = 'coordinates';
-                $message = t('Incorrect number of parameters provided.');
-                break;
-
-            case Exceptions\ValidationException::INVALID_PARAMETER_TYPE:
-                $field = 'coordinates';
-                $message = t('The format of the parameter @value is not correct, please try again.', array('@value' => $e->getValue()));
-                break;
-        }
-    }
-    catch (\Exception $e) {
-        $message = t('Something went wrong (technically) please try again.');
-    }
-
-    if ($field && $message) {
-        form_set_error($field, $message);
-    }
-}
-
-function shapes_form_submit($form, &$form_state) {
-    debug($form_state['values']['object'], 'object');
 }

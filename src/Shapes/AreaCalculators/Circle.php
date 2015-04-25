@@ -1,14 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: alex311es
- * Date: 24/4/15
- * Time: 23:39
- */
 
-namespace Riplife\Shapes\Services\AreaCalculators;
+namespace Shapes\AreaCalculators;
 
-use Riplife\Shapes\Interfaces\AreaCalculatorInterface;
+use Shapes\Interfaces\AreaCalculatorInterface;
 
 class Circle implements AreaCalculatorInterface {
 

@@ -4,10 +4,11 @@
  * Circle.
  */
 
-namespace Riplife\Shapes\Shapes;
+namespace Shapes\Shapes;
 
-use Riplife\Shapes\Interfaces\ShapeInterface;
-use Riplife\Shapes\Interfaces\ValidatorInterface;
+use Shapes\Interfaces\ValidatorInterface;
+use Shapes\Interfaces\AreaCalculatorInterface;
+use Shapes\Interfaces\FormatterInterface;
 
 abstract class Shape
 {
@@ -36,12 +37,11 @@ abstract class Shape
      */
     protected $input;
 
-    public function __construct(ValidatorInterface $validator, AreaCalculatorInterface $calculator, FormatterInterface $formatter, $parameters)
+    public function __construct(ValidatorInterface $validator, AreaCalculatorInterface $calculator, FormatterInterface $formatter)
     {
         $this->validator = $validator;
         $this->calculator = $calculator;
         $this->formatter = $formatter;
-        $this->parameters = $parameters;
     }
 
     /**
@@ -55,8 +55,15 @@ abstract class Shape
      *
      */
     public function beforeValidate($input) {
-        $secure_input = strip_tags(trim($input));
-        $data = implode(' ', $secure_input);
+        $data = explode(' ', $input);
+
+        // Numeric values must be transformed to doubles.
+        foreach ($data as $key => $value) {
+            if (is_numeric($value)) {
+                $data[$key] = (double) $value;
+            }
+        }
+
         $this->setInput($data);
 
         return $this;
@@ -69,12 +76,20 @@ abstract class Shape
      * @param string $input
      *   The data provided to build the shape and calculate its area.
      *
-     * @throws \Riplife\Shapes\Exceptions\ValidationException
+     * @throws \Shapes\Exceptions\ValidationException
      */
     public function validate($input) {
         $this->beforeValidate($input);
-        $this->validator->validate($this->getInput(), $this->parameters);
+        $this->validator->validate($this->getInput(), $this->getParameters());
         $this->setData();
+    }
+
+    /**
+     * @return int
+     */
+    public function getParameters()
+    {
+        return $this->parameters;
     }
 
     /**
@@ -97,4 +112,9 @@ abstract class Shape
      * Helper function to set the object data.
      */
     abstract function setData();
+
+    /**
+     * Helper function to set the object data.
+     */
+    abstract function format();
 }

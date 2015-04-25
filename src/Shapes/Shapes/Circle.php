@@ -4,11 +4,16 @@
  * Circle.
  */
 
-namespace Riplife\Shapes\Shapes;
+namespace Shapes\Shapes;
 
 
 class Circle extends Shape
 {
+
+    /**
+     * @var int $parameters
+     */
+    protected $parameters = 3;
 
     /**
      * @var float $x
@@ -46,5 +51,22 @@ class Circle extends Shape
         );
 
         return $this->calculator->getArea($data);
+    }
+
+    /**
+     * Formats a string with the result of the operation.
+     *
+     * @return string
+     *   A formatted string.
+     */
+    public function format() {
+        $data = array(
+            'x' => $this->x,
+            'y' => $this->y,
+            'radius' => $this->radius,
+            'area' => $this->getArea(),
+        );
+
+        return $this->formatter->format($data);
     }
 }
