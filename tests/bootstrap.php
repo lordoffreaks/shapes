@@ -12,5 +12,5 @@ if (!file_exists($autoloader . '/vendor/autoload.php')) {
 
 // Include the composer autoloader
 $loader = require $autoloader . '/vendor/autoload.php';
-$loader->add('Riplife\\Shapes\\Test\\', __DIR__);
+$loader->add('Shapes\\Test\\', __DIR__ . '/Shapes');
 

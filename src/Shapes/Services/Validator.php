@@ -24,6 +24,9 @@ class Validator implements ValidatorInterface
      * @param int $parameters
      *   Number of parameters expected by the shape.
      *
+     * @return bool
+     *   TRUE if the validation passed.
+     *
      * @throws \Shapes\Exceptions\ValidationException
      */
     public function validate($data, $parameters)
@@ -37,6 +40,8 @@ class Validator implements ValidatorInterface
                 throw new ValidationException('', ValidationException::INVALID_PARAMETER_TYPE, NULL, $number);
             }
         }
+
+        return TRUE;
     }
 
 }
