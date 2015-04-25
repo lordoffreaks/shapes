@@ -1,0 +1,15 @@
+{
+  "name": "riplife/shapes",
+  "description": "Shapes library",
+  "require": {
+    "php": ">=5.5.17"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "3.7.38"
+  },
+  "autoload": {
+    "psr-4": {
+      "Riplife\\Shapes\\": "src/"
+    }
+  }
+}

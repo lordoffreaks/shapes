@@ -1,0 +1,7 @@
+name = Shapes Module
+description = Sample module to start with
+core = 7.x
+package = Shapes
+version = 0.1
+
+dependencies[] = composer_manager

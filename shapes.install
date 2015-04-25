@@ -1,0 +1,35 @@
+<?php
+/**
+ * @file
+ * Shapes install file.
+ */
+
+function shapes_get_parameters_per_shape() {
+    return array(
+        'Circle' => 3,
+        'Triangle' => 6,
+        'Donut' => 4,
+    );
+}
+
+/**
+ * Implements hook_install.
+ */
+function shapes_install() {
+
+    $shapes = shapes_get_parameters_per_shape();
+    foreach ($shapes as $shape => $parameters) {
+        variable_set("shapes_parameters_$shape", $parameters);
+    }
+}
+
+/**
+ * Implements hook_uninstall.
+ */
+function shapes_uninstall() {
+
+    $shapes = shapes_get_parameters_per_shape();
+    foreach ($shapes as $shape => $parameters) {
+        variable_del("shapes_parameters_$shape");
+    }
+}
