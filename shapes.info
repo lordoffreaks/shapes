@@ -5,3 +5,11 @@ package = Shapes
 version = 0.1
 
 dependencies[] = composer_manager
+
+;Tests
+
+; Base test.
+files[] = tests/Functional/ShapesBase.test
+
+; Form test.
+files[] = tests/Functional/ShapesForm.test

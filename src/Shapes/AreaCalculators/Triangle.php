@@ -3,24 +3,19 @@
 namespace Shapes\AreaCalculators;
 
 use Shapes\Interfaces\AreaCalculatorInterface;
+use Shapes\Interfaces\ShapeInterface;
 
 class Triangle implements AreaCalculatorInterface {
 
     /**
-     * Calculates the area for a Triangle shape.
-     *
-     * @param array $data
-     *   Array of data to calculate the are of the shape.
-     *
-     * @return double
-     *   The area of the shape.
+     * {@inheritdoc }
      */
-    public function getArea(array $data)
+    public function getArea(ShapeInterface $shape)
     {
         $sum = 0;
-        $sum += $data['v1x'] * ($data['v2y'] - $data['v3y']);
-        $sum += $data['v2x'] * ($data['v3y'] - $data['v1y']);
-        $sum += $data['v3x'] * ($data['v1y'] - $data['v2y']);
+        $sum += $shape->v1x * ($shape->v2y - $shape->v3y);
+        $sum += $shape->v2x * ($shape->v3y - $shape->v1y);
+        $sum += $shape->v3x * ($shape->v1y - $shape->v2y);
 
         return $sum / 2;
     }

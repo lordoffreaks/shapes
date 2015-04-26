@@ -2,20 +2,15 @@
 
 namespace Shapes\Formatters;
 
+use Shapes\Interfaces\ShapeInterface;
 use Shapes\Interfaces\FormatterInterface;
 
 class Triangle implements FormatterInterface {
     /**
-     * Formats a string with the result of the operation.
-     *
-     * @param array $data
-     *   The data provided to build the shape and calculate its area.
-     *
-     * @return string
-     *   A formatted string.
+     * {@inheritdoc }
      */
-    public function format($data) {
+    public function format(ShapeInterface $shape) {
 
-        return sprintf("Triangle with vertex 1 at (%01.2f, %01.2f), vertex 2 at (%01.2f, %01.2f), vertex 3 at (%01.2f, %01.2f). Area: %01.2f m2", $data['v1x'], $data['v1y'], $data['v2x'], $data['v2y'], $data['v3x'], $data['v3y'], $data['area']);
+        return sprintf("Triangle with vertex 1 at (%01.2f, %01.2f), vertex 2 at (%01.2f, %01.2f), vertex 3 at (%01.2f, %01.2f). Area: %01.2f m2", $shape->v1x, $shape->v1y, $shape->v2x, $shape->v2y, $shape->v3x, $shape->v3y, $shape->getArea());
     }
 }

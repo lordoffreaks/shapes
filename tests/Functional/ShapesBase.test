@@ -1,0 +1,30 @@
+<?php
+/**
+ * @file
+ * Tests for the Shapes module.
+ */
+
+/**
+ * Base class for all shapes web test cases.
+ */
+abstract class ShapeBase extends \DrupalWebTestCase {
+
+    /**
+     * Setup method.
+     */
+    protected function setUp() {
+        parent::setUp(array('shapes', 'composer_manager'));
+    }
+
+    /**
+     * Executes a form given a shape and coordinates.
+     */
+    public function _testShape($type, $coordinates) {
+
+        $edit = array();
+        $edit['shape'] = $type;
+        $edit['coordinates'] = $coordinates;
+
+        $this->drupalPost('shapes', $edit, t('Calculate Area'));
+    }
+}

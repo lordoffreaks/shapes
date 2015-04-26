@@ -30,11 +30,12 @@ function shapes_perm() {
  */
 function shapes_menu() {
     $items['shapes'] = array(
-        'title' => 'Sample',
-        'description' => t('Sample Shapes form'),
+        'title' => 'Shapes',
+        'description' => t('Shapes form to play with them!!!'),
         'page callback' => 'drupal_get_form',
         'page arguments' => array('shapes_form'),
-        'access arguments' => array('administer sample page'),
+         // It doesn't looks like a very private feature.
+        'access callback' => TRUE,
         'type' => MENU_CALLBACK,
         'file' => 'shapes.forms.inc',
     );

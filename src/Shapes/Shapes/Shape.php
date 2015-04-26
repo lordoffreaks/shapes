@@ -6,11 +6,12 @@
 
 namespace Shapes\Shapes;
 
+use Shapes\Interfaces\ShapeInterface;
 use Shapes\Interfaces\ValidatorInterface;
 use Shapes\Interfaces\AreaCalculatorInterface;
 use Shapes\Interfaces\FormatterInterface;
 
-abstract class Shape
+abstract class Shape implements ShapeInterface
 {
     /**
      * @var ValidatorInterface
@@ -111,10 +112,26 @@ abstract class Shape
     /**
      * Helper function to set the object data.
      */
-    abstract function setData();
+    abstract public function setData();
 
     /**
-     * Helper function to set the object data.
+     * Formats a string with the result of the operation.
+     *
+     * @return string
+     *   A formatted string.
      */
-    abstract function format();
+    public function format() {
+        return $this->formatter->format($this);
+    }
+
+    /**
+     * Calculates the area for a given shape.
+     *
+     * @return double
+     *   The area of the shape.
+     */
+    public function getArea()
+    {
+        return $this->calculator->getArea($this);
+    }
 }

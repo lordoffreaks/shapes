@@ -3,22 +3,20 @@
 namespace Shapes\AreaCalculators;
 
 use Shapes\Interfaces\AreaCalculatorInterface;
+use Shapes\Interfaces\ShapeInterface;
 
 class Donut implements AreaCalculatorInterface {
 
     /**
-     * Calculates the area for a Donut shape.
-     *
-     * @param array $data
-     *   Array of data to calculate the are of the shape.
-     *
-     * @return double
-     *   The area of the shape.
+     * {@inheritdoc }
      */
-    public function getArea(array $data)
+    public function getArea(ShapeInterface $shape)
     {
-        $radius = (new Circle())->getArea(array('radius' => $data['radius']));
-        $radius2 = (new Circle())->getArea(array('radius' => $data['radius2']));
+        $shape2 = clone $shape;
+        $shape2->radius = $shape->radius2;
+
+        $radius = (new Circle())->getArea($shape);
+        $radius2 = (new Circle())->getArea($shape2);
 
         return abs($radius - $radius2);
     }

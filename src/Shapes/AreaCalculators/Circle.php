@@ -3,20 +3,15 @@
 namespace Shapes\AreaCalculators;
 
 use Shapes\Interfaces\AreaCalculatorInterface;
+use Shapes\Interfaces\ShapeInterface;
 
 class Circle implements AreaCalculatorInterface {
 
     /**
-     * Calculates the area for a Circle shape.
-     *
-     * @param array $data
-     *   Array of data to calculate the are of the shape.
-     *
-     * @return double
-     *   The area of the shape.
+     * {@inheritdoc }
      */
-    public function getArea(array $data)
+    public function getArea(ShapeInterface $shape)
     {
-        return 2 * M_PI * $data['radius'];
+        return 2 * M_PI * $shape->radius;
     }
 }
