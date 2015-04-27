@@ -23,6 +23,9 @@ the dependencies to the classes when possible.
     * A view admin the data (DraggableViews?)
     * A panel using page manager existing pages to add the view with the results. 
 * Create a drush make file to make the install easier. 
+* Create tests for the AreaCalculators and the Formatters.
+* Create negative functional tests.
+* Replace functional tests for Behat.
 
 You can run the unit tests with the following command:
 
